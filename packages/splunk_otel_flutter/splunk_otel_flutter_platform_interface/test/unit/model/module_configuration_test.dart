@@ -452,6 +452,27 @@ void main() {
     });
   });
 
+  group('FlutterErrorReportingModuleConfiguration', () {
+    test('should create with default enabled', () {
+      final config = FlutterErrorReportingModuleConfiguration();
+
+      expect(config.isEnabled, true);
+    });
+
+    test('should create with disabled', () {
+      final config = FlutterErrorReportingModuleConfiguration(isEnabled: false);
+
+      expect(config.isEnabled, false);
+    });
+
+    test('should be an ActivableModuleConfiguration', () {
+      final config = FlutterErrorReportingModuleConfiguration();
+
+      expect(config, isA<ActivableModuleConfiguration>());
+      expect(config, isA<ModuleConfiguration>());
+    });
+  });
+
   group('Module Configuration Hierarchy', () {
     test(
       'all activable modules should extend ActivableModuleConfiguration',
@@ -467,6 +488,7 @@ void main() {
           OkHttp3AutoModuleConfiguration(),
           NetworkInstrumentationModuleConfiguration(),
           SessionReplayModuleConfiguration(),
+          FlutterErrorReportingModuleConfiguration(),
         ];
 
         for (final config in configs) {

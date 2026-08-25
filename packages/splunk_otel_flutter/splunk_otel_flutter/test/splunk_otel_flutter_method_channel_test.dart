@@ -164,6 +164,17 @@ void main() {
       final config = NetworkInstrumentationModuleConfiguration();
       expect(config, isNotNull);
     });
+
+    test('FlutterErrorReportingModuleConfiguration should be creatable', () {
+      final config = FlutterErrorReportingModuleConfiguration();
+      expect(config, isNotNull);
+      expect(config.isEnabled, isTrue);
+    });
+
+    test('FlutterErrorReportingModuleConfiguration can be disabled', () {
+      final config = FlutterErrorReportingModuleConfiguration(isEnabled: false);
+      expect(config.isEnabled, isFalse);
+    });
   });
 
   group('MutableAttributes', () {

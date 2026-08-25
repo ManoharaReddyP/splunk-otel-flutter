@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import 'dart:developer';
 import 'package:flutter/foundation.dart';
 import 'package:splunk_otel_flutter_platform_interface/splunk_otel_flutter_platform_interface.dart';
 
@@ -179,11 +180,21 @@ class CustomTracking {
       final type = error is String ? 'String' : error.runtimeType.toString();
       final resolvedStackTrace = (stackTrace ?? StackTrace.current).toString();
 
+      final String? buildId = NativeRuntime.buildId;
+      final enrichedAttributes = buildId != null
+          ? MutableAttributes(
+              attributes: {
+                ...attributes.attributes,
+                'app.build_id': MutableAttributeString(value: buildId),
+              },
+            )
+          : attributes;
+
       await _delegate.customTrackingTrackError(
         type: type,
         message: error.toString(),
         stacktrace: resolvedStackTrace,
-        attributes: attributes,
+        attributes: enrichedAttributes,
         source: source.name,
         handled: handled,
       );

@@ -15,6 +15,7 @@
  */
 
 import 'package:splunk_otel_flutter/src/custom_tracking.dart';
+import 'package:splunk_otel_flutter/src/error_instrumentation.dart';
 import 'package:splunk_otel_flutter/src/global_attributes.dart';
 import 'package:splunk_otel_flutter/src/navigation/navigation.dart';
 import 'package:splunk_otel_flutter/src/rum_telemetry_metadata.dart';
@@ -127,5 +128,12 @@ class SplunkRum {
       agentConfiguration: enrichedConfiguration,
       moduleConfigurations: moduleConfigurations,
     );
+
+    final errorConfig = moduleConfigurations
+        .whereType<FlutterErrorReportingModuleConfiguration>()
+        .firstOrNull;
+    if (errorConfig != null && errorConfig.isEnabled) {
+      installErrorInstrumentation(customTracking);
+    }
   }
 }

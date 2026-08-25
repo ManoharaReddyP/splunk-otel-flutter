@@ -211,6 +211,27 @@ class OkHttp3AutoModuleConfiguration extends ActivableModuleConfiguration {
   });
 }
 
+/// Flutter error reporting configuration.
+///
+/// Hooks into [FlutterError.onError] and [PlatformDispatcher.instance.onError]
+/// after the native agent is installed, forwarding unhandled errors as
+/// spans. Both hooks chain the previous handler so existing
+/// error reporting is preserved.
+///
+/// Example:
+/// ```dart
+/// await SplunkRum.instance.install(
+///   agentConfiguration: AgentConfiguration(...),
+///   moduleConfigurations: [
+///     FlutterErrorReportingModuleConfiguration(),
+///   ],
+/// );
+/// ```
+class FlutterErrorReportingModuleConfiguration
+    extends ActivableModuleConfiguration {
+  FlutterErrorReportingModuleConfiguration({super.isEnabled = true});
+}
+
 /// Session replay module configuration.
 ///
 /// Enables screen recording for session replay in Splunk Observability Cloud.

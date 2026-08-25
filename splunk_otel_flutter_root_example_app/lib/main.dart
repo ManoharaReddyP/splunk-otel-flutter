@@ -21,6 +21,7 @@ void main() async {
       deploymentEnvironment: 'test',
     ),
     moduleConfigurations: [
+      FlutterErrorReportingModuleConfiguration(),
       SessionReplayModuleConfiguration(samplingRate: 1.0),
       // Network header capture is configured per-platform: NetworkInstrumentation
       // for iOS (URLSession) and HttpUrl/OkHttp3Auto for Android. Each platform

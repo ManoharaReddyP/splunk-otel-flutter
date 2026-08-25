@@ -50,6 +50,10 @@ void main() {
       expect(SlowRenderingModuleConfiguration(), isA<ModuleConfiguration>());
       expect(NavigationModuleConfiguration(), isA<ModuleConfiguration>());
       expect(CrashReportsModuleConfiguration(), isA<ModuleConfiguration>());
+      expect(
+        FlutterErrorReportingModuleConfiguration(),
+        isA<ModuleConfiguration>(),
+      );
     });
 
     test('should export MutableAttributes', () {
